@@ -4,7 +4,8 @@ import axios from 'axios'
 export default createStore({
   state: {
     count: 0,
-    text: "random"
+    text: "random",
+    colorCode: "blue"
   },
   getters: {
     getSquaredValue (state) {
@@ -23,11 +24,17 @@ export default createStore({
       state.text = text;
       console.log(state.text)
     },
+    setColorCode (state, newColorCode) {
+      state.colorCode = newColorCode
+    }
   },
   actions: {
     // Here we can write asynchronous code! 
     increaseCounter () {
-      console.log("Action dispatched!")
+      console.log("increaseCounter Action dispatched!")
+    },
+    decreaseCounter () {
+      console.log("decreaseCounter Action dispatched!")
     },
     getToDos ({commit}) {
       axios({

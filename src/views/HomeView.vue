@@ -21,7 +21,7 @@
       <button @click="$store.dispatch('increaseCounter')">
         +
       </button>
-      <button @click="$store.commit('decreaseCounter')">
+      <button @click="$store.dispatch('decreaseCounter')">
         -
       </button>
     </div>
@@ -38,6 +38,13 @@
     <p>Here we are using getters</p>
     {{ $store.state.count }} <sup>2</sup> = {{ $store.getters.getSquaredValue }}
   </div>
+
+  <!-- Using V-model & Computed property-->
+  <input
+    type="text"
+    v-model="colorCode"
+    placeholder="Enter color code"
+  />
 </template>
 
 <script>
@@ -56,12 +63,24 @@ export default {
   //     this.count--;
   //   }
   // }
+  computed: {
+    colorCode: {
+      get () {
+        return this.$store.state.colorCode;
+      },
+      set (newValue) {
+        // This method runs every time <input/> is changed.
+        this.$store.commit('setColorCode', newValue); 
+      }
+    }
+  }
 }
 </script>
 
 <style scoped>
   .count {
     font-size: 100px;
+    color: v-bind('$store.state.colorCode');
   }
   button {
     cursor: pointer;
